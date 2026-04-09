@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt 
 from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import classification_report
 
 
 #Split dataset into train/val/test
@@ -68,3 +69,12 @@ plt.yticks(range(len(label_map)), label_map.keys())
 plt.title("Random Forest: Predicted vs Actual")
 plt.legend(); plt.tight_layout()
 plt.savefig("figures/rf_predictions.png", dpi=150)
+
+
+#Print results summary
+models = {"Logistic Regression": y_pred_lr, "Random Forest": y_pred_test}
+for name, preds in models.items():
+    acc = accuracy_score(y_test, preds)
+    f1 = f1_score(y_test, preds, average = "macro")
+    print(f"{name}: Accuracy={acc:.2f}  Macro F1={f1:.2f}")
+    print(classification_report(y_test, preds))

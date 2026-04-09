@@ -3,6 +3,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
 
 
 #Split dataset into train/val/test
@@ -29,4 +30,16 @@ y_pred_lr = lr.predict(X_test_s)
 print("LR Accuracy:", accuracy_score(y_test, y_pred_lr))
 print("LR Macro F1:", f1_score(y_test, y_pred_lr, average='macro'))
 
+
+#Train Random Forest Model (Proposed Model)
+rf = RandomForestClassifier(n_estimators = 100, random_stats = 42)
+rf.fit(X_train, y_train)
+
+y_pred_val = rf.predict(X_val)
+print("Val Accuracy:", accuracy_score(y_val, y_pred_val))
+print("Val Macro F1:", f1_score(y_val, y_pred_val, average='macro'))
+
+y_pred_test = rf.predict(X_test)
+print("Test Accuracy:", accuracy_score(y_test, y_pred_test))
+print("Test Macro F1:", f1_score(y_test, y_pred_test, average='macro'))
 

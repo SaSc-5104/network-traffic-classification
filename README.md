@@ -1,12 +1,13 @@
 # network-traffic-classification
-Classifying Network Traffic Analytics Using Machine Learning  
+Classifying Network Traffic Analytics Using Machine Learning
 
-WHEN CLONING RUN:  
+## Setup
+When cloning, run the following commands to set up your environment:
 
-'''  
-python -m venv venv  
-source venv/bin/activate  
-pip install -r requirements.txt  
-'''  
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
 

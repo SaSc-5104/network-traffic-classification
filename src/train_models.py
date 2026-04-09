@@ -4,6 +4,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+import matplotlib.pyplot as plt 
+from sklearn.metrics import ConfusionMatrixDisplay
 
 
 #Split dataset into train/val/test
@@ -43,3 +45,26 @@ y_pred_test = rf.predict(X_test)
 print("Test Accuracy:", accuracy_score(y_test, y_pred_test))
 print("Test Macro F1:", f1_score(y_test, y_pred_test, average='macro'))
 
+
+#Generate evaluation figures
+fig, axes = plt.subplots(1, 2, figsize = (12, 5))
+for ax, preds, title in zip(axes, [y_pred_lr, y_pred_test], ["Logistic Regression", "Random Forest"]):
+    ConfusionMatrixDisplay.from_predictions(y_test, preds, ax = ax, colorbar = False)
+    ax.set_title(title)
+plt.tight_layout()
+plt.savefig("figures/confusion_matrices.png", dpi = 150, bbox_inches = 'tight')
+
+importances = pd.Series(rf.feature_importances_, index = X_train.columns)
+importances.sort_values().plot(kind = 'barh', figsize = (8, 5))
+plt.title("Feature Importances - Random Forest")
+plt.tight_layout()
+plt.savefig("figures/feature_importances.png", dpi = 150)
+
+label_map = {l:i for i, l in enumerate(sorted(y_test.unique()))}
+plt.figure(figsize = (10, 4))
+plt.plot([label_map[v] for v in y_test.values], label = "Actual", alpha = 0.7)
+plt.plot([label_map[v] for v in y_pred_test], label="Predicted", alpha=0.7)
+plt.yticks(range(len(label_map)), label_map.keys())
+plt.title("Random Forest: Predicted vs Actual")
+plt.legend(); plt.tight_layout()
+plt.savefig("figures/rf_predictions.png", dpi=150)

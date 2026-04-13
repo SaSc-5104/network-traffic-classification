@@ -35,7 +35,7 @@ print("LR Macro F1:", f1_score(y_test, y_pred_lr, average='macro'))
 
 
 #Train Random Forest Model (Proposed Model)
-rf = RandomForestClassifier(n_estimators = 100, random_stats = 42)
+rf = RandomForestClassifier(n_estimators = 100, random_state = 42)
 rf.fit(X_train, y_train)
 
 y_pred_val = rf.predict(X_val)

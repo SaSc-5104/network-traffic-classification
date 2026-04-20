@@ -1,5 +1,5 @@
 # network-traffic-classification
-Classifying Network Traffic Analytics Using Machine Learning
+Correctly classifies and predicts the website visited based only on packet data (no URL) using machine learning. Compares a logistic regression model as a baseline to a random forest model. 
 
 ## Setup
 When cloning, run the following commands to set up your environment:

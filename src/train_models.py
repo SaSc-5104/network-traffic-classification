@@ -52,6 +52,7 @@ fig, axes = plt.subplots(1, 2, figsize = (12, 5))
 for ax, preds, title in zip(axes, [y_pred_lr, y_pred_test], ["Logistic Regression", "Random Forest"]):
     ConfusionMatrixDisplay.from_predictions(y_test, preds, ax = ax, colorbar = False)
     ax.set_title(title)
+    ax.tick_params(axis='x', labelrotation=90)
 plt.tight_layout()
 plt.savefig("figures/confusion_matrices.png", dpi = 150, bbox_inches = 'tight')
 

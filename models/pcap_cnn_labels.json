@@ -1,0 +1,13 @@
+{
+  "amazon": 0,
+  "bose": 1,
+  "github": 2,
+  "handshake": 3,
+  "indeed": 4,
+  "linkedin": 5,
+  "nyt": 6,
+  "tetris": 7,
+  "tribecareers": 8,
+  "wp": 9,
+  "youtube": 10
+}

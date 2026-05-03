@@ -35,7 +35,7 @@ print("LR Macro F1:", f1_score(y_test, y_pred_lr, average='macro'))
 
 
 #Train Random Forest Model (Proposed Model)
-rf = RandomForestClassifier(n_estimators = 100, random_state = 42)
+rf = RandomForestClassifier(n_estimators = 200, random_state = 42)
 rf.fit(X_train, y_train)
 
 y_pred_val = rf.predict(X_val)
@@ -55,12 +55,16 @@ for ax, preds, title in zip(axes, [y_pred_lr, y_pred_test], ["Logistic Regressio
     ax.tick_params(axis='x', labelrotation=90)
 plt.tight_layout()
 plt.savefig("figures/confusion_matrices.png", dpi = 150, bbox_inches = 'tight')
+plt.close(fig)
 
 importances = pd.Series(rf.feature_importances_, index = X_train.columns)
-importances.sort_values().plot(kind = 'barh', figsize = (8, 5))
+plt.figure(figsize = (8, 5))
+importances.sort_values().plot(kind = 'barh')
 plt.title("Feature Importances - Random Forest")
+plt.xlabel("Importance")
 plt.tight_layout()
 plt.savefig("figures/feature_importances.png", dpi = 150)
+plt.close()
 
 label_map = {l:i for i, l in enumerate(sorted(y_test.unique()))}
 plt.figure(figsize = (10, 4))
@@ -70,6 +74,7 @@ plt.yticks(range(len(label_map)), label_map.keys())
 plt.title("Random Forest: Predicted vs Actual")
 plt.legend(); plt.tight_layout()
 plt.savefig("figures/rf_predictions.png", dpi=150)
+plt.close()
 
 
 #Print results summary
@@ -78,4 +83,4 @@ for name, preds in models.items():
     acc = accuracy_score(y_test, preds)
     f1 = f1_score(y_test, preds, average = "macro")
     print(f"{name}: Accuracy={acc:.2f}  Macro F1={f1:.2f}")
-    print(classification_report(y_test, preds))
+    print(classification_report(y_test, preds, zero_division=0))
